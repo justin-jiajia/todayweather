@@ -4,14 +4,18 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler, MessageHandler, filters, Updater, \
     CallbackContext, CommandHandler, CallbackQueryHandler
 from requests import get
+from os import path, environ
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.INFO
 )
 
-with open("config.json") as f:
-    config = loads(f.read())
+if path.exists("config.json"):
+    with open("config.json") as f:
+        config = loads(f.read())
+else:
+    config = environ
 
 USEAGE = "使用说明\n/setcity修改城市\n/nowweather 查看当前天气\n更多功能，敬请期待！"
 waiting = {}
